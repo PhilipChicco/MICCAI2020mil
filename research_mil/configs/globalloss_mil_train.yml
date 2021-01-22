@@ -1,0 +1,49 @@
+# trainer and evaluator
+seed     : 1337
+trainer  : 'globaltaskmil'
+evaluator: 'globaltaskmil'
+n_gpu    : 1
+
+slide:
+arch:
+    backbone     : resnet34v2
+    pooling      : bag_average
+    n_classes    : 2
+    embedding    : 512
+data:
+    dataset: milLoader  #milLoader
+    classmap: "mss,msi" # converts to mss: 0, msi: 1
+    # preprocessed lib containg slide info
+    data_path  : "./research_mil/data/mss_msi"
+    train_split: "train"
+    val_split  : "val"
+    test_split : "test"
+    mult : 1  # (256,256) x 1
+    # level 0 is too slow
+    level: 2  # 0 best
+
+    # Number of slides to use per class
+    # 10 for class 0 and 10 for class 1 --> 20 slides total
+    train_nslides: 10  
+    val_nslides  : 10  
+    test_nslides : 10  
+training:
+    k     : 32
+    k_val : 32
+    epochs: 20 # 350 mins - 6hrs / 3hrs for 10
+    monitor: 'acc'
+    train_batch_size: 4  # [N,K,3,256,256] -> [4,32,3,256,256]
+    val_batch_size  : 1  # [N,K,3,256,256] -> [1,32,3,256,256]
+    test_batch_size : 1  # [N,K,3,256,256] -> [1,32,3,256,256]
+    n_workers: 6
+    lr : 0.0001 # feature encoder learning rate
+    glr: 0.0001 # centerloss learning rate
+    resume: mil_model.pth
+testing:
+    # saved model root
+    checkpoint: 'checkpoints/globalmil/mil_model.pth' 
+    logdir    : 'checkpoints/globalmil/test' # logdir for saving results
+
+# training and validation logging directory root
+root  : '/media/philipchicco/CHICCO4TB/Development/projects/miccai20mil_logs/'
+logdir: 'checkpoints/globalmil'
