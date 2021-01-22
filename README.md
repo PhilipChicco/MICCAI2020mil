@@ -117,8 +117,7 @@ The center embedder was implemented as separate learnable module following the o
 ### See also 
 Thanks to works below for their implementations which were useful for this work. 
 
-[MIL_Nature](https://github.com/MSKCCComputational-\
-Pathology/MIL-nature-medicine-2019): Implementation of MIL for WSI in Nature Medicine.
+[MIL_Nature](https://github.com/MSKCCComputational-Pathology/MIL-nature-medicine-2019): Implementation of MIL for WSI in Nature Medicine.
 
 [Deep Attention MIL](https://github.com/AMLab-Amsterdam/AttentionDeepMIL) Implementation of ICML Deep attention based MIL
 
